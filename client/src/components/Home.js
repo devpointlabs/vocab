@@ -66,6 +66,24 @@ class Home extends Component {
     )
   }
 
+  cancel = () => {
+    this.setState({ term: '', suggestions: [] });
+  }
+
+  action = () => {
+    const { suggestions, term } = this.state;
+    if (suggestions.length > 0 && term.length > 0) {
+      return <Button secondary onClick={this.cancel}>Clear</Button>
+     } else if (term.length > 0 && suggestions.length === 0 ) {
+      return (
+        <div>
+          <Button secondary onClick={this.cancel}>Clear</Button>
+          <Button primary onClick={this.addTerm}>Add Term</Button>
+        </div>
+      )
+    }
+  }
+
   render() {
     const { term, suggestions } = this.state
 
@@ -79,7 +97,7 @@ class Home extends Component {
             value={term}
             onChange={this.handleSearch}
             name="term"
-            action={ (suggestions.length === 0 && term.length > 0) && <Button primary onClick={this.addTerm}>Add Term</Button> }
+            action={this.action()}
           />
         </Segment>
         <Header as="h2" textAlign="center">Terms</Header>
