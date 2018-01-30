@@ -5,8 +5,8 @@ class Term < ApplicationRecord
 
 
   def self.with_def
-    terms = select('DISTINCT(terms.id), name, body, d.created_at')
+    select('terms.id, name, body, d.created_at')
     .joins('LEFT JOIN definitions d ON d.active IS TRUE AND d.term_id = terms.id')
-    .order('name')
+    .order('LOWER(name)')
   end
 end
