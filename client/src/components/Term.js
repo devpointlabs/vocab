@@ -43,7 +43,7 @@ class Term extends React.Component {
     const { open, showForm, definition } = this.state;
     const { name } = this.props;
 
-    const style = this.state.definition ? {} : { border: 'solid 1px orange' }
+    const style = this.state.definition ? { border: 'solid 2px blue', color: 'black !important' } : { border: 'dashed 1px grey' }
     return [
       <Accordion.Title key="title" onClick={this.handleClick} active={open} style={style}>
         <Icon name="dropdown" />
