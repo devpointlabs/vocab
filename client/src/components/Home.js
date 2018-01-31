@@ -53,7 +53,7 @@ class Home extends Component {
       })
       .catch( err => {
         const { dispatch } = this.props;
-        dispatch(setHeaders(err.headers)); 
+        dispatch(setHeaders(err.headers));
         dispatch(setFlash(err.data.errors.join(","), "red"))
       })
   }
@@ -61,7 +61,7 @@ class Home extends Component {
   showTerms = () => {
     const { suggestions, terms } = this.state;
     const visible = suggestions.length > 0 ? suggestions : terms;
-    return visible.map( term => 
+    return visible.map( term =>
       <Term key={term.id} {...term} />
     )
   }
@@ -86,11 +86,12 @@ class Home extends Component {
 
   render() {
     const { term, suggestions } = this.state
-
+    const { user } = this.props
     return (
       <div>
         <Divider hidden />
         <Header as='h1' textAlign='center'>DevPoint Vocabulary</Header>
+        <Header as='h3' textAlign='center'>Welcome {user.nickname}</Header>
         <Segment>
           <Input
             label="I don't know what this means"
@@ -111,4 +112,8 @@ class Home extends Component {
   }
 }
 
-export default connect()(Home);
+const mapStateToProps = (state) => {
+  return { user: state.user }
+}
+
+export default connect(mapStateToProps)(Home);
