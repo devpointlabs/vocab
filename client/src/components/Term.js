@@ -7,6 +7,14 @@ import { setFlash } from '../actions/flash';
 
 class Term extends React.Component {
   state = { open: false, showForm:false, definition: this.props.body || '' }
+
+  componentDidMount() {
+    axios.get('/api/terms')
+    .then( res => {
+      this.setState({terms: res.data })
+      this.props.dispatch( setHeaders(res.headers) )
+    })
+  }
   
   handleClick = () => {
     this.setState( state => this.setState({ open: !state.open }) )
@@ -17,7 +25,7 @@ class Term extends React.Component {
   }
 
   cancel = () => {
-    this.setState({ showForm: false, definition: this.props.body || '' });
+    this.setState({ showForm: false, term: {}, definition: this.props.body || '' });
   }
 
   toggleForm = () => {
@@ -41,9 +49,9 @@ class Term extends React.Component {
 
   deleteTerm = (id) => {
     window.confirm("Delete Word?")
-    debugger
-    axios.delete(`/api/terms/${this.props.id}`)
+    axios.delete(`/api/terms/${id}`)
       .then( res => {
+      
       })
       .catch( err => {
         console.log(err)
@@ -52,7 +60,7 @@ class Term extends React.Component {
 
   render() {
     const { open, showForm, definition } = this.state;
-    const { name, id } = this.props;
+    const { name } = this.props;
 
     const style = this.state.definition ? { border: 'solid 2px blue', color: 'black !important' } : { border: 'dashed 1px grey' }
     return [
@@ -85,7 +93,7 @@ class Term extends React.Component {
                 name="delete" 
                 className="right" 
                 style={{ cursor: 'pointer' }}
-                onClick={() => this.deleteTerm(id) }
+                onClick={() => this.deleteTerm(this.props.id) }
               />
             </span>
          }
