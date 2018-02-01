@@ -1,5 +1,5 @@
 class Term < ApplicationRecord
-  has_many :definitions
+  has_many :definitions, dependent: :destroy
   validates_presence_of :name, :added_by
   validates_uniqueness_of :name, case_sensitive: false
 

@@ -39,9 +39,20 @@ class Term extends React.Component {
       });
   }
 
+  deleteTerm = (id) => {
+    window.confirm("Delete Word?")
+    debugger
+    axios.delete(`/api/terms/${this.props.id}`)
+      .then( res => {
+      })
+      .catch( err => {
+        console.log(err)
+      })
+  }
+
   render() {
     const { open, showForm, definition } = this.state;
-    const { name } = this.props;
+    const { name, id } = this.props;
 
     const style = this.state.definition ? { border: 'solid 2px blue', color: 'black !important' } : { border: 'dashed 1px grey' }
     return [
@@ -62,7 +73,7 @@ class Term extends React.Component {
               <Form.Button primary type="submit">Save</Form.Button>
             </Form>
             :
-            <div>
+            <span>
               <p>{this.state.definition}</p>
               <Icon 
                 name="pencil" 
@@ -70,7 +81,13 @@ class Term extends React.Component {
                 style={{ cursor: 'pointer' }}
                 onClick={this.toggleForm}
               />
-            </div>
+              <Icon 
+                name="delete" 
+                className="right" 
+                style={{ cursor: 'pointer' }}
+                onClick={() => this.deleteTerm(id) }
+              />
+            </span>
          }
       </Accordion.Content>
     ]
