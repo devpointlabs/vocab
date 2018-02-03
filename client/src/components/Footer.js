@@ -59,11 +59,11 @@ render(){
 
 const styles = {
   footer: {
-    position: 'absolute',
+    position: 'relative',
     bottom: '0',
     width: '100%',
     height: '60px',   /* Height of the footer */
-    background: '#599532',
+    background: 'black',
     borderRadius: '0px'
   },
   container: {

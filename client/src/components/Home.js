@@ -91,7 +91,7 @@ class Home extends Component {
       <div>
         <Divider hidden />
         <Header as='h1' textAlign='center'>DevPoint Vocabulary</Header>
-        <Segment>
+        <Segment basic>
           <Input
             label="I don't know what this means"
             value={term}
@@ -100,14 +100,23 @@ class Home extends Component {
             action={this.action()}
           />
         </Segment>
+        <Divider />
         <Header as="h2" textAlign="center">Terms</Header>
-        <Segment>
+        <Segment basic>
           <Accordion styled>
             { this.showTerms() }
           </Accordion>
         </Segment>
       </div>
     );
+  }
+}
+
+const styles = {
+  body :{
+    height: '100%',
+    display: 'flex',
+    flexDirection: 'column'
   }
 }
 

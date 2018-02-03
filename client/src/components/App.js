@@ -9,6 +9,7 @@ import ProtectedRoute from './ProtectedRoute';
 import AuthRoute from './AuthRoute';
 import FetchUser from './FetchUser';
 import { Switch, Route } from 'react-router-dom';
+import '../App.css';
 
 class App extends Component {
   render() {
@@ -16,17 +17,21 @@ class App extends Component {
       <div>
         <Flash />
         <FetchUser>
+          <div className='wrapper'> 
           <Switch>
             <ProtectedRoute exact path='/' component={Home} />
             <AuthRoute exact path='/login' component={Login} />
             <AuthRoute exact path='/register' component={Register} />
             <Route component={NoMatch} />
           </Switch>
+        </div>
         </FetchUser>
         <Footer />
       </div>
     );
   }
 }
+
+
 
 export default App;
