@@ -1,5 +1,5 @@
 import React from 'react';
-import { Accordion, Icon, Form } from 'semantic-ui-react';
+import { Accordion, Icon, Form, Button } from 'semantic-ui-react';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import { setHeaders } from '../actions/headers';
@@ -62,9 +62,9 @@ class Term extends React.Component {
     const { open, showForm, definition } = this.state;
     const { name } = this.props;
 
-    const style = this.state.definition ? { border: 'solid 2px blue', color: 'black !important' } : { border: 'dashed 1px grey' }
+    // const style = this.state.definition ? { border: 'solid 2px blue', color: 'black !important' } : { border: 'solid 1px grey' }
     return [
-      <Accordion.Title key="title" onClick={this.handleClick} active={open} style={style}>
+      <Accordion.Title key="title" onClick={this.handleClick} active={open}>
         <Icon name="dropdown" />
         <span>{name}</span>
       </Accordion.Title>,
@@ -77,8 +77,10 @@ class Term extends React.Component {
                 value={definition}
                 onChange={this.handleChange}
               />
-              <Form.Button secondary onClick={this.cancel} type="button">Cancel</Form.Button>
-              <Form.Button primary type="submit">Save</Form.Button>
+              <Button.Group> 
+              <Form.Button primary type="submit" style={{borderRadius: '0px'}}>Save</Form.Button>
+              <Form.Button secondary onClick={this.cancel} style={{borderRadius: '0px'}} type="button">Cancel</Form.Button>
+              </Button.Group>
             </Form>
             :
             <span>
