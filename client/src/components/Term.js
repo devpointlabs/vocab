@@ -6,7 +6,7 @@ import { setHeaders } from '../actions/headers';
 import { setFlash } from '../actions/flash';
 
 class Term extends React.Component {
-  state = { open: false, showForm:false, definition: this.props.body || '' }
+  state = { open: false, showForm:false, definition: this.props.body || '', terms: {} }
 
   componentDidMount() {
     axios.get('/api/terms')
@@ -51,7 +51,7 @@ class Term extends React.Component {
     window.confirm("Delete Word?")
     axios.delete(`/api/terms/${id}`)
       .then( res => {
-      
+        this.setState 
       })
       .catch( err => {
         console.log(err)
