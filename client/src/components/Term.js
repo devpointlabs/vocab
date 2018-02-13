@@ -60,7 +60,7 @@ class Term extends React.Component {
 
   render() {
     const { open, showForm, definition } = this.state;
-    const { name } = this.props;
+    const { name, created_at } = this.props;
 
     // const style = this.state.definition ? { border: 'solid 2px blue', color: 'black !important' } : { border: 'solid 1px grey' }
     return [
@@ -85,6 +85,8 @@ class Term extends React.Component {
             :
             <span>
               <p>{this.state.definition}</p>
+              <span style={{ color: 'grey' }}>Added On: {new Date(created_at).toLocaleDateString()}</span>
+              <br />
               <Icon 
                 name="pencil" 
                 className="right" 
