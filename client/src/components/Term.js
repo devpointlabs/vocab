@@ -1,12 +1,20 @@
 import React from 'react';
-import { Accordion, Icon, Form } from 'semantic-ui-react';
+import { Accordion, Icon, Form, Button } from 'semantic-ui-react';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import { setHeaders } from '../actions/headers';
 import { setFlash } from '../actions/flash';
 
 class Term extends React.Component {
-  state = { open: false, showForm:false, definition: this.props.body || '' }
+  state = { open: false, showForm:false, definition: this.props.body || '', terms: {} }
+
+  componentDidMount() {
+    axios.get('/api/terms')
+    .then( res => {
+      this.setState({terms: res.data })
+      this.props.dispatch( setHeaders(res.headers) )
+    })
+  }
   
   handleClick = () => {
     this.setState( state => this.setState({ open: !state.open }) )
@@ -17,7 +25,7 @@ class Term extends React.Component {
   }
 
   cancel = () => {
-    this.setState({ showForm: false, definition: this.props.body || '' });
+    this.setState({ showForm: false, term: {}, definition: this.props.body || '' });
   }
 
   toggleForm = () => {
@@ -39,13 +47,24 @@ class Term extends React.Component {
       });
   }
 
+  deleteTerm = (id) => {
+    window.confirm("Delete Word?")
+    axios.delete(`/api/terms/${id}`)
+      .then( res => {
+        this.setState 
+      })
+      .catch( err => {
+        console.log(err)
+      })
+  }
+
   render() {
     const { open, showForm, definition } = this.state;
     const { name, created_at } = this.props;
 
-    const style = this.state.definition ? { border: 'solid 2px blue', color: 'black !important' } : { border: 'dashed 1px grey' }
+    // const style = this.state.definition ? { border: 'solid 2px blue', color: 'black !important' } : { border: 'solid 1px grey' }
     return [
-      <Accordion.Title key="title" onClick={this.handleClick} active={open} style={style}>
+      <Accordion.Title key="title" onClick={this.handleClick} active={open}>
         <Icon name="dropdown" />
         <span>{name}</span>
       </Accordion.Title>,
@@ -58,11 +77,13 @@ class Term extends React.Component {
                 value={definition}
                 onChange={this.handleChange}
               />
-              <Form.Button secondary onClick={this.cancel} type="button">Cancel</Form.Button>
-              <Form.Button primary type="submit">Save</Form.Button>
+              <Button.Group> 
+              <Form.Button primary type="submit" style={{borderRadius: '0px'}}>Save</Form.Button>
+              <Form.Button secondary onClick={this.cancel} style={{borderRadius: '0px'}} type="button">Cancel</Form.Button>
+              </Button.Group>
             </Form>
             :
-            <div>
+            <span>
               <p>{this.state.definition}</p>
               <span style={{ color: 'grey' }}>Added On: {new Date(created_at).toLocaleDateString()}</span>
               <br />
@@ -72,7 +93,13 @@ class Term extends React.Component {
                 style={{ cursor: 'pointer' }}
                 onClick={this.toggleForm}
               />
-            </div>
+              <Icon 
+                name="delete" 
+                className="right" 
+                style={{ cursor: 'pointer' }}
+                onClick={() => this.deleteTerm(this.props.id) }
+              />
+            </span>
          }
       </Accordion.Content>
     ]

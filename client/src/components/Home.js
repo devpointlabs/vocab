@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Header, Segment, Input, Button, Divider, Accordion } from 'semantic-ui-react';
+import { Header, Segment, Input, Button, Divider, Accordion, Menu, Container, Grid } from 'semantic-ui-react';
 import axios from 'axios'
 import { connect } from 'react-redux';
 import { setHeaders } from '../actions/headers';
@@ -89,26 +89,63 @@ class Home extends Component {
     const { user } = this.props
     return (
       <div>
-        <Divider hidden />
-        <Header as='h1' textAlign='center'>DevPoint Vocabulary</Header>
-        <Header as='h3' textAlign='center'>Welcome {user.nickname}</Header>
-        <Segment>
-          <Input
-            label="I don't know what this means"
-            value={term}
-            onChange={this.handleSearch}
-            name="term"
-            action={this.action()}
-          />
-        </Segment>
-        <Header as="h2" textAlign="center">Terms</Header>
-        <Segment>
-          <Accordion styled>
-            { this.showTerms() }
-          </Accordion>
-        </Segment>
+      <Grid celled='internally'> 
+        <Grid.Row> 
+        <Grid.Column tablet={8} className='wrapper' computer={3} style={{backgroundColor: 'gray'}}>
+        <Menu  secondary vertical >
+        <Header as='h4' textAlign='center' style={styles.white}> Categories </Header>
+          <Menu.Item name='All Words' style={styles.white} onClick={this.handleItemClick} />
+          <Menu.Item name='Languages' style={styles.white} onClick={this.handleItemClick} />
+          <Menu.Item name='Ruby' style={styles.white}  onClick={this.handleItemClick} />
+        </Menu>
+        <Button> Add Category </Button> 
+        </Grid.Column> 
+        <Grid.Column computer={13}>
+          <Divider hidden />
+          <Header as='h1' textAlign="center">DevPoint Vocabulary</Header>
+          <Divider />
+          <Segment basic textAlign="center">
+            <Input
+              label="I don't know what this means"
+              value={term}
+              onChange={this.handleSearch}
+              name="term"
+              action={this.action()}
+            />
+          </Segment>
+          <Divider />
+        <Grid>
+        <Grid.Row columns="equal">
+          <Grid.Column> 
+            <Header as="h2" textAlign="center">Terms</Header>
+              <Accordion styled style={{paddingBottom: "7%"}}>
+                { this.showTerms() }
+              </Accordion>
+              </Grid.Column>
+              <Grid.Column>
+            <Header as="h2" textAlign="center">Saved Terms</Header>
+              <Accordion styled style={{paddingBottom: "7%"}}>
+                This will show saved terms 
+              </Accordion>
+              </Grid.Column>
+              </Grid.Row>
+            </Grid>
+          </Grid.Column>
+        </Grid.Row>
+        </Grid> 
       </div>
     );
+  }
+}
+
+const styles = {
+  body :{
+    height: '100%',
+    display: 'flex',
+    flexDirection: 'column'
+  },
+  white :{
+    color: 'white'
   }
 }
 

@@ -3,6 +3,7 @@ class Definition < ApplicationRecord
   validates_presence_of :body, :added_by
   before_create :deactivate
 
+
   def deactivate
     old = Definition
             .where(term_id: self.term_id)
