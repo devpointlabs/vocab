@@ -1,12 +1,13 @@
 import React from 'react';
 import { Accordion, Icon, Form, Button } from 'semantic-ui-react';
 import axios from 'axios';
+// import { deleteTerm } from '../actions/terms'
 import { connect } from 'react-redux';
 import { setHeaders } from '../actions/headers';
 import { setFlash } from '../actions/flash';
 
 class Term extends React.Component {
-  state = { open: false, showForm:false, definition: this.props.body || '', terms: {} }
+  state = { open: false, showForm:false, definition: this.props.body || '', term: {} }
 
   componentDidMount() {
     axios.get('/api/terms')
@@ -48,14 +49,7 @@ class Term extends React.Component {
   }
 
   deleteTerm = (id) => {
-    window.confirm("Delete Word?")
-    axios.delete(`/api/terms/${id}`)
-      .then( res => {
-        this.setState 
-      })
-      .catch( err => {
-        console.log(err)
-      })
+    this.props.deleteTerm(id)
   }
 
   render() {

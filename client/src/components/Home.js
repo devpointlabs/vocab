@@ -58,11 +58,22 @@ class Home extends Component {
       })
   }
 
+  deleteTerm = (id) => {
+    const deleted = window.confirm("Delete Word?")
+    if (deleted)
+    axios.delete(`/api/terms/${id}`)
+      .then( res => {
+        this.props.dispatch(setHeaders(res.headers));
+      })
+    let filterTerms = this.state.terms.filter(term => term.id !== id)
+    this.setState({ terms: filterTerms })
+  }
+
   showTerms = () => {
     const { suggestions, terms } = this.state;
     const visible = suggestions.length > 0 ? suggestions : terms;
     return visible.map( term =>
-      <Term key={term.id} {...term} />
+      <Term key={term.id} {...term} deleteTerm={this.deleteTerm} />
     )
   }
 
