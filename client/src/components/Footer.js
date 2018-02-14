@@ -27,11 +27,12 @@ rightNavs = () => {
       </Link>
       &nbsp; | &nbsp;
       <Link to='/login' style={styles.leftNav}>
-        <Menu.Item name='Login' style={{fontWeight: '300'}} />
+        <Menu.Item name='Login' style={{fontWeight: '300'}}  />
       </Link>
     </span> 
     </Menu.Menu>
   );
+
 }
 
 render(){
@@ -44,11 +45,11 @@ render(){
           </Link>
         </Grid.Column>
         <Grid.Column textAlign='right'>
-          <Link to='/' style={styles.leftNav}>
+          <div style={styles.leftNav}>
             <h5 style={{fontWeight: '300'}}>
             { this.rightNavs() }
             </h5>
-          </Link>
+          </div>
           &nbsp;
         </Grid.Column>
       </Grid>

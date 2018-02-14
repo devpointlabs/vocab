@@ -4,6 +4,7 @@ import axios from 'axios'
 import { connect } from 'react-redux';
 import { setHeaders } from '../actions/headers';
 import { setFlash } from '../actions/flash';
+import Categories from './Categories'
 import Term from './Term';
 
 class Home extends Component {
@@ -103,13 +104,7 @@ class Home extends Component {
       <Grid celled='internally'> 
         <Grid.Row> 
         <Grid.Column tablet={8} className='wrapper' computer={3} style={{backgroundColor: 'gray'}}>
-        <Menu  secondary vertical >
-        <Header as='h4' textAlign='center' style={styles.white}> Categories </Header>
-          <Menu.Item name='All Words' style={styles.white} onClick={this.handleItemClick} />
-          <Menu.Item name='Languages' style={styles.white} onClick={this.handleItemClick} />
-          <Menu.Item name='Ruby' style={styles.white}  onClick={this.handleItemClick} />
-        </Menu>
-        <Button> Add Category </Button> 
+        <Categories />
         </Grid.Column> 
         <Grid.Column computer={13}>
           <Divider hidden />
@@ -155,9 +150,6 @@ const styles = {
     display: 'flex',
     flexDirection: 'column'
   },
-  white :{
-    color: 'white'
-  }
 }
 
 const mapStateToProps = (state) => {

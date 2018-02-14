@@ -1,7 +1,6 @@
 import React from 'react';
 import { Accordion, Icon, Form, Button } from 'semantic-ui-react';
 import axios from 'axios';
-// import { deleteTerm } from '../actions/terms'
 import { connect } from 'react-redux';
 import { setHeaders } from '../actions/headers';
 import { setFlash } from '../actions/flash';

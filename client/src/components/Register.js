@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Header, Form, Button, Segment } from 'semantic-ui-react';
+import { Header, Form, Button, Segment, Container } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { registerUser } from '../actions/auth';
 import { setFlash } from '../actions/flash';
@@ -28,7 +28,7 @@ class Register extends Component {
     const { nickname, email, password, passwordConfirmation } = this.state;
 
     return (
-      <Segment basic>
+      <Container style={styles.login_container} mobile={16} tablet={8} computer={8}>
         <Header as='h1' textAlign='center'>Register Component</Header>
         <Form onSubmit={this.handleSubmit}>
           <Form.Field>
@@ -77,8 +77,16 @@ class Register extends Component {
             <Button type='submit'>Submit</Button>
           </Segment>
         </Form>
-      </Segment>
+      </Container>
     );
+  }
+}
+const styles = {
+  login_container: {
+    backgroundColor: 'rgba(255, 255, 255, .55)',
+    padding: '30px 20px',
+    maxWidth: '100%',
+    borderRadius: '5px'
   }
 }
 
